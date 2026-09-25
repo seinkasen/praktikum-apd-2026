@@ -81,8 +81,8 @@ else:
     print("-")
 
 #if bercabang
-Hujan = True
-Mendung = False
+Hujan = False
+Mendung = True
 
 if Hujan:
     print("Pake Jas Hujan")
