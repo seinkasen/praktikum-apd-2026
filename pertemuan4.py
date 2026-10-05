@@ -1,3 +1,5 @@
+#MODUL 4 PERULANGAN (Looping)
+
 #---
 #PENGULANGAN FOR (Counted Loop)
 
@@ -99,4 +101,5 @@ jumlah = 0
 for i in range(1, n+1):
     if i % 2 != 0:
         jumlah += 1
+
 print (f"Jumlah ganjil: {jumlah}")
