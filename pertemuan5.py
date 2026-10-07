@@ -116,8 +116,8 @@
 #OPERATOR PADA TUPLE
 
 #Operator join (penjumlahan)
-chara = ("Yukari", "Yukino", "Odette", "Senku")
-umur = (20, 22, 25, 17)
-join = chara + umur
-print(join)
+# chara = ("Yukari", "Yukino", "Odette", "Senku")
+# umur = (20, 22, 25, 17)
+# join = chara + umur
+# print(join)
 #=======================================================
