@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="4.2">
+    <attributes>
+        <attribute name="name" value="2609106044_Fazri Heryansyah_POSTTEST1_B1'26"/>
+        <attribute name="authors" value="ichah"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2026-09-15 10:17:40 PM"/>
+        <attribute name="created" value="aWNoYWg7QURFTElTQTsyMDI2LTA5LTE1OzA1OjA0OjU0IFBNOzIyOTU="/>
+        <attribute name="edited" value="aWNoYWg7QURFTElTQTsyMDI2LTA5LTE1OzEwOjE3OjQwIFBNOzM7MjQwMA=="/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="saldo, golongan, tarif, sisaSaldo, kekurangan" type="Integer" array="False" size=""/>
+            <output expression="&quot;Masukkan Saldo E-Toll Anda (Rp):&quot;" newline="True"/>
+            <input variable="saldo"/>
+            <output expression="&quot;Pilih Golongan Kendaraan anda (1:Mobil, 2: Truk)&quot;" newline="True"/>
+            <input variable="golongan"/>
+            <if expression="golongan == 1">
+                <then>
+                    <assign variable="tarif" expression="75000"/>
+                    <if expression="saldo &gt;= tarif">
+                        <then>
+                            <assign variable="sisaSaldo" expression="saldo - tarif"/>
+                            <output expression="&quot;Tarif: &quot; &amp; tarif" newline="True"/>
+                            <output expression="&quot; [TRANSAKSI BERHASIL] Gerbang Tol Terbuka! Hati hati di jalan yaa! Sisa saldo Anda: Rp&quot; &amp; sisaSaldo" newline="True"/>
+                        </then>
+                        <else>
+                            <assign variable="kekurangan" expression="saldo - tarif"/>
+                            <output expression="&quot; [TRANSAKSI GAGAL] Saldo anda tidak cukup! Saldo Anda: Rp&quot; &amp; Saldo" newline="True"/>
+                            <output expression="&quot;Saldo anda kurang: Rp&quot; &amp; kekurangan &amp; &quot; untuk membayar tarif&quot;" newline="True"/>
+                            <output expression="&quot;Tarif: &quot; &amp; tarif" newline="True"/>
+                        </else>
+                    </if>
+                </then>
+                <else>
+                    <if expression="golongan == 2">
+                        <then>
+                            <assign variable="tarif" expression="125000"/>
+                            <if expression="saldo &gt;= tarif">
+                                <then>
+                                    <assign variable="sisaSaldo" expression="saldo - tarif"/>
+                                    <output expression="&quot;Tarif: &quot; &amp; tarif" newline="True"/>
+                                    <output expression="&quot; [TRANSAKSI BERHASIL] Gerbang Tol Terbuka! Hati hati di jalan yaa! Sisa saldo Anda: Rp&quot; &amp; sisaSaldo" newline="True"/>
+                                </then>
+                                <else>
+                                    <assign variable="kekurangan" expression="saldo - tarif"/>
+                                    <output expression="&quot; [TRANSAKSI GAGAL] Saldo anda tidak cukup! Saldo Anda: Rp&quot; &amp; Saldo" newline="True"/>
+                                    <output expression="&quot;Saldo anda kurang: Rp&quot; &amp; kekurangan &amp; &quot; untuk membayar tarif&quot;" newline="True"/>
+                                    <output expression="&quot;Tarif: &quot; &amp; tarif" newline="True"/>
+                                </else>
+                            </if>
+                        </then>
+                        <else>
+                            <output expression="&quot;Golongan tidak valid!&quot;" newline="True"/>
+                        </else>
+                    </if>
+                </else>
+            </if>
+        </body>
+    </function>
+</flowgorithm>
