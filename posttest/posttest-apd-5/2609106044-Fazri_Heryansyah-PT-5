@@ -177,7 +177,7 @@ while True:
             if len(data_akun) == 0:
                 print("Belum ada data akun yang tersimpan di database.")
             else:
-                # Fix Bug #3: Ganti 'item'[1] menjadi header string "Username / Email"
+                
                 print(f"{'No.':<4} | {'Aplikasi / Web':<20} | {'Username / Email':<20}")
                 print("==================================================")
                 idx = 1
@@ -197,8 +197,6 @@ while True:
                         print("Nomor akun tidak ditemukan!")
                 else:
                     print("Input harus berupa angka nomor akun!")
-            
-            # Fix Bug #4: Keluarkan input() dari else agar selalu menahan layar
             input("Tekan Enter untuk kembali.")
 
         elif pilihan_menu == "5":
