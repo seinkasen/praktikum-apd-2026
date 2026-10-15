@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="4.2">
+    <attributes>
+        <attribute name="name" value="Pertemuan 1"/>
+        <attribute name="authors" value="ichah"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2026-09-09 04:30:37 PM"/>
+        <attribute name="created" value="aWNoYWg7QURFTElTQTsyMDI2LTA5LTA5OzA0OjE3OjI3IFBNOzIzMDE="/>
+        <attribute name="edited" value="aWNoYWg7QURFTElTQTsyMDI2LTA5LTA5OzA0OjMwOjM3IFBNOzE7MjQwNQ=="/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="gajiPokok, lamaLembur, hasil, bonus" type="Integer" array="False" size=""/>
+            <assign variable="gajiPokok" expression="2000000"/>
+            <input variable="lamaLembur"/>
+            <if expression="lamaLembur &gt; 24">
+                <then>
+                    <assign variable="bonus" expression="40000*lamaLembur"/>
+                </then>
+                <else>
+                    <if expression="lamaLembur &lt;= 24 &amp;&amp; lamaLembur &gt;= 1">
+                        <then>
+                            <assign variable="bonus" expression="25000*lamaLembur"/>
+                        </then>
+                        <else>
+                            <assign variable="bonus" expression="0"/>
+                        </else>
+                    </if>
+                </else>
+            </if>
+            <assign variable="hasil" expression="gajiPokok + bonus"/>
+            <output expression="hasil" newline="True"/>
+        </body>
+    </function>
+</flowgorithm>
