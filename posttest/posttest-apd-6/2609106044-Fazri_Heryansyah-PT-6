@@ -91,7 +91,6 @@ while True:
     pilihan_menu = input("Pilih menu: ").strip()
 
     if logged_in_role == "admin":
-
         if pilihan_menu == "1":
             os.system('cls' if os.name == 'nt' else 'clear')
             print("===========================")
