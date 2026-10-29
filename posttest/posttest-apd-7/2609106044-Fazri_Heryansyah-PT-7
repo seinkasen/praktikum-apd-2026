@@ -1,0 +1,283 @@
+import os
+
+users = {
+    "admin": {"password": "admin123", "role": "admin"},
+    "user1": {"password": "user123", "role": "user"}
+}
+
+data_akun = {
+    "MLBB": {"username": "Lebron_James", "password": "BronBronny"}
+}
+
+logged_in_user = ""
+logged_in_role = ""
+
+def bersihkan_layar():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def cetak_garis():
+    print("==================================================")
+
+def tampilkan_menu_awal():
+    bersihkan_layar()
+    print("===========================")
+    print("  ACCOUNT MANAGER - LOGIN  ")
+    print("===========================")
+    print("1. Login")
+    print("2. Register (jika belum mempunyai akun)")
+    print("3. Keluar program")
+    print("===========================")
+    print("")
+
+def hitung_total_akun_rekursif(daftar_kunci, index=0):
+    if index >= len(daftar_kunci):
+        return 0
+    return 1 + hitung_total_akun_rekursif(daftar_kunci, index + 1)
+
+def validasi_pilihan_menu(max_pilihan):
+    try:
+        input_str = input("Pilih menu: (1-3): ").strip()
+        pilihan_angka = int(input_str)
+        if 1 <= pilihan_angka <= max_pilihan:
+            return pilihan_angka
+        else:
+            print("\nPilihan menu tidak tersedia!")
+            input("Tekan Enter untuk mencoba lagi.")
+            return None
+    except ValueError:
+        print("\nError: Input harus berupa angka!")
+        input("Tekan Enter untuk mencoba lagi.")
+        return None
+
+def ambil_info_sistem():
+    status_db = "Dictionary Aktif"
+    return status_db
+
+while True:
+    tampilkan_menu_awal()
+    
+    pilihan_awal_angka = validasi_pilihan_menu(3)
+    if pilihan_awal_angka is None:
+        continue
+    
+    pilihan_awal = str(pilihan_awal_angka)
+
+    if pilihan_awal == "1":
+        print("===========================")
+        print("           LOGIN           ")
+        print("===========================")
+        input_user = input("Username : ").strip()
+        input_pass = input("Password : ").strip()
+
+        if input_user in users and users[input_user]["password"] == input_pass:
+            logged_in_user = input_user
+            logged_in_role = users[input_user]["role"]
+            print(f"\nLogin berhasil! Selamat datang {logged_in_user}! Role kamu '{logged_in_role.upper()}' ya!")
+            input("Tekan Enter untuk melanjutkan.")
+            
+            while True:
+                bersihkan_layar()
+                print("===========================")
+                print(" ACCOUNT MANAGER - MAIN MENU ")
+                print("===========================")
+                print(f"Pengguna Aktif : {logged_in_user} | Info: {ambil_info_sistem()}")
+                print("===========================")
+
+                if logged_in_role == "admin":
+                    print("1. Tambah Akun Baru (Create)")
+                    print("2. Lihat Semua Akun (Read)")
+                    print("3. Perbarui Password Akun (Update)")
+                    print("4. Hapus Akun (Delete)")
+                    print("5. Hitung Total Akun (Rekursif)")
+                    print("6. Logout")
+                    batas_maks_menu = 6
+                else:
+                    print("1. Lihat Semua Akun (Read - Akses Terbatas)")
+                    print("2. Logout")
+                    batas_maks_menu = 2
+                
+                print("===========================")
+
+                pilihan_menu_angka = validasi_pilihan_menu(batas_maks_menu)
+                if pilihan_menu_angka is None:
+                    continue
+                
+                pilihan_menu = str(pilihan_menu_angka)
+
+                if logged_in_role == "admin":
+                    if pilihan_menu == "1":
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        print("===========================")
+                        print("     TAMBAH AKUN BARU      ")
+                        print("===========================")
+                        app = input("Nama Aplikasi / Web : ").strip()
+                        uname = input("Username / Email    : ").strip()
+                        pwd = input("Password            : ").strip()
+
+                        if app != "" and uname != "" and pwd != "":
+                            if app in data_akun:
+                                print(f"\nAkun untuk '{app}' sudah ada! Gunakan menu Update jika ingin mengubah.")
+                            else:
+                                data_akun[app] = {"username": uname, "password": pwd}
+                                print(f"\nKredensial untuk '{app}' berhasil ditambahkan!")
+                        else:
+                            print("\nMohon mengisi semua data!")
+                        input("Tekan Enter untuk kembali.")
+
+                    elif pilihan_menu == "2":
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        print("===========================")
+                        print("         LIST AKUN         ")
+                        print("===========================")
+                        if len(data_akun) == 0:
+                            print("Belum ada data akun yang tersimpan di database.")
+                        else:
+                            print(f"{'No.':<4} | {'Aplikasi / Web':<20} | {'Username / Email':<20} | {'Password':<15}")
+                            print("===================================================================")
+                            index = 1
+                            for app, detail in data_akun.items():
+                                print(f"{index:<4} | {app:<20} | {detail['username']:<20} | {detail['password']:<15}")
+                                index += 1
+                        input("\nTekan Enter untuk kembali.")
+
+                    elif pilihan_menu == "3":
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        print("===========================")
+                        print("   UPDATE PASSWORD AKUN    ")
+                        print("===========================")
+                        if len(data_akun) == 0:
+                            print("Belum ada data akun yang tersimpan di database.")
+                        else:
+                            print(f"{'No.':<4} | {'Aplikasi / Web':<20} | {'Username / Email':<20}")
+                            print("==================================================")
+                            list_keys = list(data_akun.keys())
+                            idx = 1
+                            for key in list_keys:
+                                print(f"{idx:<4} | {key:<20} | {data_akun[key]['username']:<20}")
+                                idx += 1
+                            print("==================================================")
+
+                            input_no = input("Masukkan Nomor Akun yang ingin diubah password-nya: ").strip()
+
+                            if input_no.isdigit():
+                                no_index = int(input_no) - 1
+                                if 0 <= no_index < len(list_keys):
+                                    key_pilihan = list_keys[no_index]
+                                    pass_baru = input(f"Masukkan Password Baru untuk '{key_pilihan}': ").strip()
+                                    if pass_baru != "":
+                                        data_akun[key_pilihan]["password"] = pass_baru
+                                        print("\nPassword berhasil diperbarui!")
+                                    else:
+                                        print("\nPassword baru tidak boleh kosong!")
+                                else:
+                                    print("\nNomor akun tidak ditemukan!")
+                            else:
+                                print("\nInput harus berupa angka nomor akun!")
+                        input("\nTekan Enter untuk kembali.")
+
+                    elif pilihan_menu == "4":
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        print("===========================")
+                        print("        DELETE AKUN        ")
+                        print("===========================")
+                        if len(data_akun) == 0:
+                            print("Belum ada data akun yang tersimpan di database.")
+                        else:
+                            print(f"{'No.':<4} | {'Aplikasi / Web':<20} | {'Username / Email':<20}")
+                            print("==================================================")
+                            
+                            list_keys = list(data_akun.keys())
+                            idx = 1
+                            for key in list_keys:
+                                print(f"{idx:<4} | {key:<20} | {data_akun[key]['username']:<20}")
+                                idx += 1
+                            print("==================================================")
+
+                            input_no = input("Masukkan Nomor Akun yang ingin dihapus: ").strip()
+
+                            if input_no.isdigit():
+                                no_index = int(input_no) - 1
+                                if 0 <= no_index < len(list_keys):
+                                    key_pilihan = list_keys[no_index]
+                                    akun_terhapus = data_akun.pop(key_pilihan)
+                                    print(f"\nAkun '{key_pilihan}' ({akun_terhapus['username']}) berhasil dihapus!")
+                                else:
+                                    print("\nNomor akun tidak ditemukan!")
+                            else:
+                                print("\nInput harus berupa angka nomor akun!")
+                        input("\nTekan Enter untuk kembali.")
+
+                    elif pilihan_menu == "5":
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        print("===========================")
+                        print("   TOTAL AKUN (REKURSIF)   ")
+                        print("===========================")
+                        total_hasil = hitung_total_akun_rekursif(list(data_akun.keys()))
+                        print(f"Total akun tersimpan di database: {total_hasil} buah")
+                        print("===========================")
+                        input("\nTekan Enter untuk kembali.")
+
+                    elif pilihan_menu == "6":
+                        print("\nBerhasil logout dari sistem.")
+                        logged_in_user = ""
+                        logged_in_role = ""
+                        input("Tekan Enter untuk kembali ke halaman utama.")
+                        break
+                    else:
+                        print("\nPilihan invalid!")
+                        input("Tekan Enter untuk mencoba lagi.")
+
+                else:
+                    if pilihan_menu == "1":
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        print("===========================")
+                        print("        DAFTAR AKUN        ")
+                        print("===========================")
+                        if len(data_akun) == 0:
+                            print("Belum ada data akun yang tersimpan di database.")
+                        else:
+                            print(f"{'No.':<4} | {'Aplikasi / Web':<20} | {'Username / Email':<20}")
+                            print("--------------------------------------------------")
+                            index = 1
+                            for app, detail in data_akun.items():
+                                print(f"{index:<4} | {app:<20} | {detail['username']:<20}")
+                                index += 1
+                        input("\nTekan Enter untuk kembali.")
+
+                    elif pilihan_menu == "2":
+                        print("\nBerhasil logout dari sistem.")
+                        logged_in_user = ""
+                        logged_in_role = ""
+                        input("Tekan Enter untuk kembali ke halaman utama.")
+                        break
+                    else:
+                        print("\nPilihan Invalid!")
+                        input("Tekan Enter untuk mencoba lagi.")
+        else:
+            print("\nUsername atau password salah!")
+            input("Tekan Enter untuk mencoba lagi.")
+
+    elif pilihan_awal == "2":
+        print("===========================")
+        print("     REGISTER PENGGUNA     ")
+        print("===========================")
+        reg_user = input("Masukkan Username Baru: ").strip()
+        reg_pass = input("Masukkan Password Baru: ").strip()
+
+        if reg_user != "" and reg_pass != "":
+            if reg_user in users:
+                print("\nUsername sudah terdaftar! Mohon gunakan username lain ^^.")
+            else:
+                users[reg_user] = {"password": reg_pass, "role": "user"}
+                print(f"\nRegistrasi berhasil! Akun '{reg_user}' telah dibuat.")
+        else:
+            print("\nUsername dan password tidak boleh kosong!")
+
+        input("Tekan Enter untuk kembali ke menu utama.")
+
+    elif pilihan_awal == "3":
+        print("\nTerima Kasih sudah menggunakan program ini!")
+        exit()
+    else:
+        print("\nPilihan invalid")
+        input("Tekan Enter untuk mencoba lagi.")
